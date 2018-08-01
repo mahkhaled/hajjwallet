@@ -65,7 +65,7 @@ use rake db:load_file[/absolute/path/to/sample/filename.rb]}
     # Prepare requests for setting a catalog of computers
     requests = (1..NUM).map do |i|
       SetItemValues.new(
-          "computer-#{i}", #itemId
+          "item-#{i}", #itemId
           #values:
           { 
             'price' => rand(15000.0 .. 25000.0),
@@ -85,8 +85,8 @@ use rake db:load_file[/absolute/path/to/sample/filename.rb]}
           "user-#{i}", #itemId
           #values:
           { 
-            'lat' => rand(15000.0 .. 25000.0),
-            'lng' => rand(15000.0 .. 25000.0),
+            'lat' => rand(39.0 .. 41.0),
+            'lng' => rand(21.0 .. 22.0),
             'district' => 'Al Khalil Ibrahim',
             'country' => ['Egypt', 'Tunis', 'KSA'][rand(0..2)]
           },

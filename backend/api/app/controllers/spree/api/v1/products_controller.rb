@@ -94,6 +94,21 @@ module Spree
           respond_with(@product, status: 204)
         end
 
+        def product_recommendations
+          require 'recombee_api_client'
+          include RecombeeApiClient
+          
+          client = RecombeeClient('hajjwallet', 'jfio458jwflkwekhefjk32nksdjfw')
+
+          @product = find_product(params[:id])
+          
+          # Get 5 recommendations for current user, who is currently viewing this product
+          recommended = client.send(RecommendItemsToItem.new("item-#{@product.id}", "user-#{current_user.id}", 5) )
+          puts "Recommended items: #{recommended}"
+          
+          respond_with(recommended)
+        end
+
         private
 
         def product_params
