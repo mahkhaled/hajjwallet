@@ -31,6 +31,91 @@ use rake db:load_file[/absolute/path/to/sample/filename.rb]}
     end
   end
 
+  desc 'Loads recommendations'
+  task :load_recommendations, [:dir] => :environment do |_t, args|
+    require 'recombee_api_client'
+    include RecombeeApiClient
+    
+    client = RecombeeClient('hajjwallet', 'jfio458jwflkwekhefjk32nksdjfw')
+
+    NUM = 100
+    PROBABILITY_PURCHASED = 0.1
+
+    client.send(ResetDatabase.new) # Clear everything from the database
+
+    # We will use computers as items in this example
+    # Computers have five properties 
+    #   - price (floating point number)
+    #   - shop_id (integer number)
+    #   - description (string)
+
+
+    # Add properties of items
+    client.send(AddItemProperty.new('price', 'double'))
+    client.send(AddItemProperty.new('shop_id', 'int'))
+    client.send(AddItemProperty.new('description', 'string'))
+    
+    # Add properties of users
+    client.send(AddUserProperty.new('country', 'string'))
+    client.send(AddUserProperty.new('district', 'string'))
+    client.send(AddUserProperty.new('lat', 'double'))
+    client.send(AddUserProperty.new('lng', 'double'))
+
+
+    # Prepare requests for setting a catalog of computers
+    requests = (1..NUM).map do |i|
+      SetItemValues.new(
+          "computer-#{i}", #itemId
+          #values:
+          { 
+            'price' => rand(15000.0 .. 25000.0),
+            'shop_id' => rand(1..8),
+            'description' => 'Great computer'
+          },
+          #optional parameters:
+          {
+            'cascadeCreate' => true  # Use cascadeCreate for creating item
+                                    # with given itemId, if it doesn't exist
+          }
+        )
+    end
+
+    user_requests = (1..NUM).map do |i|
+      SetUserValues.new(
+          "user-#{i}", #itemId
+          #values:
+          { 
+            'lat' => rand(15000.0 .. 25000.0),
+            'lng' => rand(15000.0 .. 25000.0),
+            'district' => 'Al Khalil Ibrahim',
+            'country' => ['Egypt', 'Tunis', 'KSA'][rand(0..2)]
+          },
+          #optional parameters:
+          {
+            'cascadeCreate' => true  # Use cascadeCreate for creating item
+                                    # with given itemId, if it doesn't exist
+          }
+        )
+    end
+
+    requests = requests.concat(user_requests)
+
+    # Send catalog to the recommender system
+    puts client.send(Batch.new(requests))
+
+    # Prepare some purchases of items by users
+    requests = []
+    (1..NUM).map{|i| "computer-#{i}"}.each do |item_id|
+      user_ids = (1..NUM).map{|i| "user-#{i}"}
+      user_ids = user_ids.select { |_| rand(0.0..1.0) < PROBABILITY_PURCHASED }
+      # Use cascadeCreate to create unexisting users
+      user_ids.each { |user_id| requests.push(AddPurchase.new(user_id, item_id, 'cascadeCreate' => true)) }
+    end
+
+    # Send purchases to the recommender system
+    client.send(Batch.new(requests))
+  end
+
   desc 'Migrate schema to version 0 and back up again. WARNING: Destroys all data in tables!!'
   task remigrate: :environment do
     require 'highline/import'
