@@ -1,0 +1,15 @@
+#main-part {
+  padding: 15px 35px 0;
+  &.sidebar-collapsed {
+    padding-left: 85px;
+  }
+}
+
+.logo.navbar-brand {
+  padding: 5px 15px;
+}
+
+#logo {
+  width: auto;
+  height: 40px;
+}
