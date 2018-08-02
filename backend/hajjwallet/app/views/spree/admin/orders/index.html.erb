@@ -213,7 +213,7 @@
           <%= link_to_edit_url edit_admin_order_path(order), title: "admin_edit_#{dom_id(order)}", no_text: true if can?(:edit, order) %>
         </td>
         <td class='actions actions-1' data-hook="admin_orders_index_row_actions">
-          <%= button_link_to '', edit_admin_order_path(order), title: "admin_edit_#{dom_id(order)}", no_text: true, class: 'btn btn-primary btn-sm with-tip', icon: 'check' if can?(:edit, order) %>
+          <%= button_link_to '', edit_admin_order_path(order), title: "Deliver", no_text: true, class: 'btn btn-primary btn-sm with-tip', icon: 'check' if can?(:edit, order) %>
         </td>
       </tr>
     <% end %>
