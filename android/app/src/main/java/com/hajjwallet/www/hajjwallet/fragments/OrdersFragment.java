@@ -6,25 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hajjwallet.www.hajjwallet.adapters.OrdersAdapter;
 import com.hajjwallet.www.hajjwallet.R;
 import com.hajjwallet.www.hajjwallet.base.BaseFragment;
 
-import butterknife.ButterKnife;
+public class OrdersFragment extends BaseFragment {
+    OrdersAdapter ordersAdapter;
 
-public class OffersFragment extends BaseFragment {
-    public static OffersFragment newInstance() {
-        
+    public static OrdersFragment newInstance() {
+
         Bundle args = new Bundle();
-        
-        OffersFragment fragment = new OffersFragment();
+
+        OrdersFragment fragment = new OrdersFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_offers, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_orders, container, false);
+        ordersAdapter = new OrdersAdapter();
         return view;
 
     }

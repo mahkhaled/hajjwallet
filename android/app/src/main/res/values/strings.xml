@@ -2,5 +2,5 @@
     <string name="app_name">Hajj Wallet</string>
     <string name="title_store">Store</string>
     <string name="title_home">home</string>
-    <string name="title_offers">offers</string>
+    <string name="title_orders">orders</string>
 </resources>

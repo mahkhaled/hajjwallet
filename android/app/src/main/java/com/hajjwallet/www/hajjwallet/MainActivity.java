@@ -8,8 +8,9 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.hajjwallet.www.hajjwallet.base.BaseActivity;
+import com.hajjwallet.www.hajjwallet.fragments.ActiveOrdersFragment;
 import com.hajjwallet.www.hajjwallet.fragments.HomeFragment;
-import com.hajjwallet.www.hajjwallet.fragments.OffersFragment;
+import com.hajjwallet.www.hajjwallet.fragments.OrdersFragment;
 import com.hajjwallet.www.hajjwallet.fragments.ShopFragment;
 
 import butterknife.BindView;
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity {
                     getFragmentManager().beginTransaction().replace(R.id.content, HomeFragment.newInstance()).commit();
                     return true;
                 case R.id.navigation_notifications:
-                    getFragmentManager().beginTransaction().replace(R.id.content, OffersFragment.newInstance()).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.content, ActiveOrdersFragment.newInstance()).commit();
                     return true;
             }
             return false;
