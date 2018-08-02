@@ -1,8 +1,10 @@
+require 'rqrcode'
+
 module Spree
   module Api
     module V1
       class OrdersController < Spree::Api::BaseController
-        skip_before_action :authenticate_user, only: :apply_coupon_code
+        skip_before_action :authenticate_user, only: [:apply_coupon_code, :order_qrcode]
 
         before_action :find_order, except: [:create, :mine, :current, :index, :update]
 
@@ -110,6 +112,27 @@ module Spree
           @handler = PromotionHandler::Coupon.new(@order).apply
           status = @handler.successful? ? 200 : 422
           render 'spree/api/v1/promotions/handler', status: status
+        end
+
+        def order_qrcode
+          qrcode = RQRCode::QRCode.new("  #{@order.number}")
+          file_path = "tmp/order_#{@order.number}"
+          image = qrcode.as_png(
+            resize_gte_to: false,
+            resize_exactly_to: false,
+            fill: 'white',
+            color: 'black',
+            size: 120,
+            border_modules: 4,
+            module_px_size: 6,
+            file: file_path # path to write
+            )
+
+          # IO.write("/tmp/github-qrcode.png", png.to_s)
+
+          send_file(file_path,
+            :filename => "hajjwallet-user.png",
+            :type => "image/png", :disposition => 'inline')
         end
 
         private
