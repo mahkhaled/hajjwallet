@@ -21,6 +21,9 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.share_qr_code)
     TextView shareQrCode;
 
+    //TODO generate qr code
+    String walletQrCode = "R842718960";
+
     public static HomeFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -48,7 +51,7 @@ public class HomeFragment extends BaseFragment {
     void shareQrCode() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is qr code url.");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, walletQrCode);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }

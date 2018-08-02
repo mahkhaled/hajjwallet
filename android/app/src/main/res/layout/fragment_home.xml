@@ -66,8 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:textColor="@color/colorPrimary"
         android:layout_marginTop="24dp"
-        android:text="share my qr "
+        android:text="share my code "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
