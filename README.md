@@ -15,6 +15,7 @@ A complete financial solution for Hajj-participants to do all of their trading a
 * Vendor can manage store products
 * Vendor can manage orders
 * Use collaborative filtering algorithm to recommend user-items and item-items
+* Generate order/user barcodes
 * APIs for the mobile app
 
 
