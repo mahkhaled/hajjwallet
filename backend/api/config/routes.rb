@@ -62,6 +62,8 @@ Spree::Core::Engine.add_routes do
 
       get '/orders/mine', to: 'orders#mine', as: 'my_orders'
       get '/orders/current', to: 'orders#current', as: 'current_order'
+      get '/orders/:id/order_qrcode', to: 'orders#order_qrcode', as: 'order_qrcode'
+
 
       resources :orders, concerns: :order_routes
 
