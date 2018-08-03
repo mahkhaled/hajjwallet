@@ -1,4 +1,4 @@
-# hajjwallet
+# HajjWallet
 
 A complete financial solution for Hajj-participants to do all of their trading activities
 
