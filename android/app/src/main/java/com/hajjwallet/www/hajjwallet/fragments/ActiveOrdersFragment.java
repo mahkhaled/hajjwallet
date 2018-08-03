@@ -1,5 +1,6 @@
 package com.hajjwallet.www.hajjwallet.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hajjwallet.www.hajjwallet.OrderDetailsActivity;
 import com.hajjwallet.www.hajjwallet.adapters.OrdersAdapter;
 import com.hajjwallet.www.hajjwallet.R;
 import com.hajjwallet.www.hajjwallet.base.BaseFragment;
@@ -16,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ActiveOrdersFragment extends BaseFragment {
+public class ActiveOrdersFragment extends BaseFragment implements OrdersAdapter.OnItemViewClicked {
     OrdersAdapter ordersAdapter;
     @BindView(R.id.rv_orders)
     RecyclerView rvOrders;
@@ -35,7 +37,7 @@ public class ActiveOrdersFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_acrtive_orders, container, false);
-        ordersAdapter = new OrdersAdapter();
+        ordersAdapter = new OrdersAdapter(ActiveOrdersFragment.this);
         unbinder = ButterKnife.bind(this, view);
         rvOrders.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvOrders.setAdapter(ordersAdapter);
@@ -47,5 +49,10 @@ public class ActiveOrdersFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onItemCliecked() {
+        getActivity().startActivity(new Intent(getActivity(), OrderDetailsActivity.class));
     }
 }

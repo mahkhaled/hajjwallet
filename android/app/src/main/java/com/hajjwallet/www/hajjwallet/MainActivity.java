@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        getFragmentManager().beginTransaction().replace(R.id.content, ShopFragment.newInstance()).commit();
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

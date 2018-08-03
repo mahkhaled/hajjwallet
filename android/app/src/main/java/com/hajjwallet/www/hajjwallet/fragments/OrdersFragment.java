@@ -26,7 +26,7 @@ public class OrdersFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_orders, container, false);
-        ordersAdapter = new OrdersAdapter();
+
         return view;
 
     }

@@ -14,6 +14,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     final int VIEW_TYPE_READY = 0;
     final int VIEW_TYPE_REMAINING = 1;
 
+
+    OnItemViewClicked listener;
+
+    public OrdersAdapter(OnItemViewClicked listener) {
+        this.listener = listener;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (position < 2) {
@@ -55,6 +62,18 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
                     itemView.getContext().startActivity(intent);
                 }
             });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onItemCliecked();
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemViewClicked {
+        void onItemCliecked();
     }
 }
