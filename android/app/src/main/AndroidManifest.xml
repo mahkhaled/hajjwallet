@@ -24,6 +24,10 @@
         <activity
             android:name=".OrderDetailsActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".KeypadActivity"
+            android:label="@string/app_name" />
+
     </application>
 
 </manifest>
